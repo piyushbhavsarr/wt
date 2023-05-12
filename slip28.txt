@@ -1,0 +1,53 @@
+<html>
+    <head>
+<form id="login-form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+</head>
+<body>
+  <script>
+  document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    var formData = new FormData(event.target);
+  
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        if (this.responseText == "Valid") {
+          alert("The username and password are valid.");
+        } else {
+          alert("The username and password are invalid.");
+        }
+      }
+    };
+    xhr.open("POST", "slip28.php");
+    xhr.send(formData);
+  });
+
+  </script>
+  </body>
+  </html>
+
+  2nd - 
+  <?php
+$db = mysqli_connect("hostname", "username", "password", "database_name");
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $query = "SELECT * FROM Credentials WHERE username='$username' AND password='$password'";
+    $results = mysqli_query($db, $query);
+
+    if (mysqli_num_rows($results) == 1) {
+        echo "Valid";
+    } else {
+        echo "Invalid";
+    }
+}
+?>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<students>
+  <student>
+    <roll_no>1</roll_no>
+    <name>John Doe</name>
+    <address>123 Main St</address>
+    <college>XYZ College</college>
+    <course>Computer Science</course>
+  </student>
+</students>

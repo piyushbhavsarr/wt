@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>Displaying Preferences<br>
+    <title>Display Preferences</title>
+</head>
+<body style="<?php
+if(isset($_COOKIE["bg_color"])) {
+    echo "background-color: ".$_COOKIE["bg_color"].";";
+}
+if(isset($_COOKIE["font_style"])) {
+    echo " font-family: ".$_COOKIE["font_style"].";";
+}
+if(isset($_COOKIE["font_size"])) {
+    echo " font-size: ".$_COOKIE["font_size"]."px;";
+}
+if(isset($_COOKIE["font_color"])) {
+    echo " color: ".$_COOKIE["font_color"].";";
+}
+?>">
+    <?php
+    if(isset($_COOKIE["bg_color"])) {
+        echo "Background Color: ".$_COOKIE["bg_color"]."<br>";
+    }
+    if(isset($_COOKIE["font_style"])) {
+        echo "Font Style: ".$_COOKIE["font_style"]."<br>";
+    }
+    if(isset($_COOKIE["font_size"])) {
+        echo "Font Size: ".$_COOKIE["font_size"]."px<br>";
+    }
+    if(isset($_COOKIE["font_color"])) {
+        echo "Font Color: ".$_COOKIE["font_color"]."<br>";
+    }
+    ?>
+</body>
+</html>
+
+
+2nd - slip2apreferences.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Preferences</title>
+</head>
+<body>
+    <form action="slip2asetpreferences.php" method="post">
+        <label for="font_style">Font Style:</label>
+        <select name="font_style" id="font_style">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+        </select><br><br>
+
+        <label for="font_size">Font Size:</label>
+        <input type="number" name="font_size" id="font_size"><br><br>
+
+        <label for="font_color">Font Color:</label>
+        <input type="color" name="font_color" id="font_color"><br><br>
+
+        <label for="bg_color">Background Color:</label>
+        <input type="color" name="bg_color" id="bg_color"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+3rd -slip2asetpreferences.php
+<?php
+$expire = time() + 60*60*24*30;
+setcookie("font_style", $_POST["font_style"], $expire);
+setcookie("font_size", $_POST["font_size"], $expire);
+setcookie("font_color", $_POST["font_color"], $expire);
+setcookie("bg_color", $_POST["bg_color"], $expire);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Preferences</title>
+</head>
+<body>
+    <h2>Selected Preferences:</h2>
+    <?php
+    echo "Font Style: ".$_POST["font_style"]."<br>";
+    echo "Font Size: ".$_POST["font_size"]."px<br>";
+    echo "Font Color: ".$_POST["font_color"]."<br>";
+    echo "Background Color: ".$_POST["bg_color"]."<br>";
+    ?>
+    <form action="slip2adisplay_preferences.php" method="post">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
